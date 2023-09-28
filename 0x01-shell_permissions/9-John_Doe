@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -l 0x01-shell_permissions/hello
+chmod 753 hello
