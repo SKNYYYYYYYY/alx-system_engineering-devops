@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -l hello
+ls -l 0x01-shell_permissions/hello
