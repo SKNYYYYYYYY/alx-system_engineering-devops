@@ -1,2 +1,2 @@
 #!/bin/bash
-tail /passwd
+tail /bin/passwd
