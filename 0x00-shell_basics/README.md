@@ -1,1 +1,1 @@
-scrting
+README FOR SCRIPT
