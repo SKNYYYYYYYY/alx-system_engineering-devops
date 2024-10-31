@@ -1,0 +1,1 @@
+learning on loops, condition and parsing in shell scripts
