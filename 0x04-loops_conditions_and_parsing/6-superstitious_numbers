@@ -2,20 +2,21 @@
 #This script implements the conditional statements inside a loop
 i=0
 while [ $i -le 20 ]; do
-    if [ $i == 4 ]; then
+    case $i in
+    4)
         echo "$i"
         echo "bad luck from China"
-        ((i = i + 1))
-    elif [ $i == 9 ]; then
+        ((i = i + 1));;
+    9)
         echo "$i"
         echo "bad luck from Japan"
-        ((i = i + 1))
-    elif [ $i == 17 ]; then
+        ((i = i + 1));;
+    17)
         echo "$i"
         echo "bad luck from Italy"
-        ((i = i + 1))
-    else
+        ((i = i + 1));;
+    *)
         echo "$i"
-        ((i = i + 1))
-    fi
+        ((i = i + 1));;
+    esac
 done
