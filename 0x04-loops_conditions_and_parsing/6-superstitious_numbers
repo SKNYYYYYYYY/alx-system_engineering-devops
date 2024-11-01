@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #This script implements the conditional statements inside a loop
-i=0
+i=1
 while [ $i -le 20 ]; do
     case $i in
     4)
