@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#This script implements the conditional statements inside a loop
+i=0
+while [ $i -le 20 ]; do
+    if [ $i == 4 ]; then
+        echo "$i"
+        echo "bad luck from China"
+        ((i = i + 1))
+    elif [ $i == 9 ]; then
+        echo "$i"
+        echo "bad luck from Japan"
+        ((i = i + 1))
+    elif [ $i == 17 ]; then
+        echo "$i"
+        echo "bad luck from Italy"
+        ((i = i + 1))
+    else
+        echo "$i"
+        ((i = i + 1))
+    fi
+done
