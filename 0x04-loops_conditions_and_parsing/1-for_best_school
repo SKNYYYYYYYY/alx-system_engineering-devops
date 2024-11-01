@@ -3,5 +3,5 @@
 
 # shellcheck disable=SC2034
 for i in $(seq 1 10);do 
-echo "BEST School";
+echo "Best School";
 done
