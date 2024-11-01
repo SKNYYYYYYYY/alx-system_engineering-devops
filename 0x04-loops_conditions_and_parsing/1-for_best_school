@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-str="BEST School"
+# prints Best School 10 times using for loop
+
 # shellcheck disable=SC2034
 for i in $(seq 1 10);do 
-echo "$str";
+echo "BEST School";
 done
