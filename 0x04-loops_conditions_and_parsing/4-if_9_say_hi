@@ -6,8 +6,9 @@ while [ $i -le 10 ]; do
     echo "Best School"
     ((i = i + 1))
     if [ $i == 9 ]; then
-    echo "Hi"
-    ((i = i + 1))
+	echo "Best School"
+	echo "Hi"
+    	((i = i + 1))
     fi
 done
 
