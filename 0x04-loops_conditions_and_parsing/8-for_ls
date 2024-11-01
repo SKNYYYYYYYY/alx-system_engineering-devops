@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#This script displays the clock numerals
+list=$(ls)
+    for items in $list; do
+        trimmed_item="${items#*-}"
+        echo "$trimmed_item"
+    done

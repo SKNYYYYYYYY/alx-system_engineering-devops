@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#This script displays the clock numerals
+i=0
+while [ $i -lt 13 ]; do
+    echo "Hour: $i"
+    j=1
+    while [ $j -le 60 ]; do
+        echo "Minute: $j"
+        ((j = j + 1))
+    done
+    ((i = i + 1))
+done
