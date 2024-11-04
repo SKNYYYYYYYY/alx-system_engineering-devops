@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # manage_my_process script - This will be the daemon process
 while true
 do
