@@ -4,8 +4,12 @@
 #include <sys/types.h>
 
 /**
- * infinite_while - Runs an infinite loop to keep the parent process alive.
- * Return: Always 0.
+ * infinite_while - Creates an infinite loop
+ *
+ * Description: This function creates an infinite loop that
+ * keeps the parent process running
+ *
+ * Return: Always 0 (though it never actually returns)
  */
 int infinite_while(void)
 {
@@ -17,35 +21,37 @@ int infinite_while(void)
 }
 
 /**
- * main - Creates 5 zombie processes.
- * Return: Always 0.
+ * main - Creates five zombie processes
+ *
+ * Description: This program creates 5 zombie processes by forking
+ * child processes that immediately exit while the parent continues
+ * to run
+ *
+ * Return: 0 on success, 1 on failure
  */
 int main(void)
 {
-	pid_t pid;
-	int i;
+	pid_t child_pid;
+	unsigned int i;
 
 	for (i = 0; i < 5; i++)
 	{
-		pid = fork();
-		if (pid == -1)
+		child_pid = fork();
+		if (child_pid < 0)
 		{
-			perror("fork failed");
+			perror("Error:");
 			return (1);
 		}
-		if (pid == 0)
+		if (child_pid == 0)
 		{
-			/* Child process immediately exits to become a zombie */
 			exit(0);
 		}
 		else
 		{
-			/* Parent process prints the PID of the zombie */
-			printf("Zombie process created, PID: %d\n", pid);
+			printf("Zombie process created, PID: %d\n", child_pid);
 		}
 	}
 
-	/* Keep the parent process alive to maintain zombie state of children */
 	infinite_while();
 
 	return (0);
