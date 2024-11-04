@@ -6,5 +6,5 @@ pid=$(pgrep -f "bash ./4-to_infinity_and_beyond")
 # Check if the PID exists
 if [ -n "$pid" ]; then
 # Send the SIGTERM signal to the process
-kill $pid
+kill "$pid"
 fi
