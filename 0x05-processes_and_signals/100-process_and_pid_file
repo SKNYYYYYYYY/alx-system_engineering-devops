@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Create the PID file
+echo $$ > /var/run/myscript.pid
+
+# Trap SIGTERM and SIGINT signals
+trap 'echo "I hate the kill command"' SIGTERM
+trap 'echo "Y U no love me?!"' SIGINT
+
+# Trap SIGQUIT and SIGTERM for cleanup and exit
+trap 'rm /var/run/myscript.pid; exit' SIGQUIT SIGTERM
+
+# Display message indefinitely
+while true; do
+  echo "To infinity and beyond"
+  sleep 1
+done
