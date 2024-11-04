@@ -1,32 +1,85 @@
 #!/usr/bin/env bash
-#This script will
+# This script manages the lifecycle of manage_my_process daemon
+
 PID_FILE="/var/run/my_process.pid"
 PROCESS_SCRIPT="./manage_my_process"
 
-start() {
+# Check if script exists and is executable
+if [ ! -x "$PROCESS_SCRIPT" ]; then
+    echo "Error: $PROCESS_SCRIPT not found or not executable"
+    exit 1
+fi
+
+check_running() {
     if [ -f "$PID_FILE" ]; then
+        pid=$(cat "$PID_FILE")
+        # Check if process is actually running
+        if kill -0 "$pid" 2>/dev/null; then
+            return 0  # Process is running
+        else
+            rm -f "$PID_FILE"  # Clean up stale PID file
+            return 1
+        fi
+    fi
+    return 1
+}
+
+start() {
+    if check_running; then
         echo "Process is already running."
         exit 1
     fi
+    
     $PROCESS_SCRIPT &
-    echo $! > "$PID_FILE"
-    echo "manage_my_process started"
+    pid=$!
+    # Verify process started successfully
+    if kill -0 $pid 2>/dev/null; then
+        echo $pid > "$PID_FILE"
+        echo "manage_my_process started"
+    else
+        echo "Error: Failed to start process"
+        exit 1
+    fi
 }
 
 stop() {
-    if [ ! -f "$PID_FILE" ]; then
+    if ! check_running; then
         echo "Process is not running."
         exit 1
     fi
-    kill "$(cat $PID_FILE)"
+    
+    pid=$(cat "$PID_FILE")
+    kill "$pid"
+    # Wait for process to stop
+    for i in {1..5}; do
+        if ! kill -0 "$pid" 2>/dev/null; then
+            rm -f "$PID_FILE"
+            echo "manage_my_process stopped"
+            return 0
+        fi
+        sleep 1
+    done
+    
+    # Force kill if still running
+    kill -9 "$pid" 2>/dev/null
     rm -f "$PID_FILE"
-    echo "manage_my_process stopped"
+    echo "manage_my_process forcefully stopped"
 }
 
 restart() {
-    stop
+    if check_running; then
+        stop
+    fi
     start
     echo "manage_my_process restarted"
+}
+
+status() {
+    if check_running; then
+        echo "manage_my_process is running"
+    else
+        echo "manage_my_process is stopped"
+    fi
 }
 
 case "$1" in
@@ -39,8 +92,13 @@ case "$1" in
     restart)
         restart
         ;;
+    status)
+        status
+        ;;
     *)
-        echo "Usage: manage_my_process {start|stop|restart}"
+        echo "Usage: manage_my_process {start|stop|restart|status}"
         exit 1
         ;;
 esac
+
+exit 0
