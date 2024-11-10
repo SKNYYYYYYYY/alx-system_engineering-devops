@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 #this scripts implements ping
 if [ $# == 0 ]; then
-{
     echo "Usage: 5-is_the_"host_on_the_network "{IP_ADDRESS}"""
-}
 else
-{
-    ping 5 "$1"
-}
+    ping -c 5 "$1"
 fi
