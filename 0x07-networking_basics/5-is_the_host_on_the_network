@@ -2,7 +2,7 @@
 #this scripts implements ping
 if [ $# == 0 ]; then
 {
-    echo "Usage: 5-is_the_"host_on_the_network {IP_ADDRESS}""
+    echo "Usage: 5-is_the_"host_on_the_network "{IP_ADDRESS}"""
 }
 else
 {
