@@ -8,31 +8,26 @@ import requests
 import sys
 
 
-if __name__ == "__main__":
-    id = int(sys.argv[1])
+def get_user_details(id):
     """
     Fetches and prints an employee's completed tasks.
-
     Args:
         id (int): Employee ID.
     """
     url = "https://jsonplaceholder.typicode.com"
-    params = {"id": id}
     response = requests.get("{}/users".format(url), params={"id": id})
     if response.status_code == 200:
         data = response.json()
     employee = data[0]
 
-# todo details
+	# todo details
     todos_response = requests.get("{}/todos".format(url), params={"userId": id})
     if todos_response.status_code == 200:
         tasks = todos_response.json()
-        done, total = 0, 0
-        for dict in tasks:
-            total += 1
-            if dict['completed']:
-                done += 1
-    print("Employee {} is done with tasks({}/{}):".format(employee['name'], done, total))
-    for dict in tasks:
-        if dict["completed"]:
-            print("\t", dict["title"])
+    total_tasks = [i['title'] for i in tasks]
+    done_tasks = [i["title"] for i in tasks if i["completed"]]
+    print("Employee {} is done with tasks({}/{}):".format(employee['name'], len(done_tasks), len(total_tasks)))
+    print("\t" + "\n\t".join(done_tasks),)
+if __name__ == "__main__":
+    id = int(sys.argv[1])
+    get_user_details(id)

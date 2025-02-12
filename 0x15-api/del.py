@@ -1,16 +1,33 @@
 #!/usr/bin/python3
-"""Generate a Todo list for a given employee id"""
+"""
+Fetches user details and tasks from JSONPlaceholder API.
+"""
+
+
 import requests
-from sys import argv
+import sys
 
+
+def get_user_details(id):
+    """
+    Fetches and prints an employee's completed tasks.
+    Args:
+        id (int): Employee ID.
+    """
+    url = "https://jsonplaceholder.typicode.com"
+    response = requests.get("{}/users".format(url), params={"id": id})
+    if response.status_code == 200:
+        data = response.json()
+    employee = data[0]
+
+	# todo details
+    todos_response = requests.get("{}/todos".format(url), params={"userId": id})
+    if todos_response.status_code == 200:
+        tasks = todos_response.json()
+    total_tasks = [i['title'] for i in tasks]
+    done_tasks = [i["title"] for i in tasks if i["completed"]]
+    print("Employee {} is done with tasks({}/{}):\n".format(employee['name'], len(done_tasks), len(total_tasks)))
+    print("\t\n".join(done_tasks))
 if __name__ == "__main__":
-    url = "https://jsonplaceholder.typicode.com/"
-    id = argv[1]
-
-    user = requests.get(url + f"users/{id}").json()
-    todos = requests.get(url + f"todos", params={"userId": id}).json()
-
-    tasks = [i["title"] for i in todos if i["completed"]]
-    print(f"Employee {user.get('name')} is done with ", end="")
-    print(f"tasks({len(tasks)}/{len(todos)}):")
-    [print(f"\t {i}") for i in tasks]
+    id = int(sys.argv[1])
+    get_user_details(id)
