@@ -18,13 +18,13 @@ if __name__ == "__main__":
     """
     url = "https://jsonplaceholder.typicode.com"
     params = {"id": id}
-    response = requests.get(f"{url}/users", params=params)
+    response = requests.get("{}/users".format(url), params={"id": id})
     if response.status_code == 200:
         data = response.json()
     employee = data[0]
 
 # todo details
-    todos_response = requests.get(f"{url}/todos", params={"userId": id})
+    todos_response = requests.get("{}/todos".format(url), params={"userId": id})
     if todos_response.status_code == 200:
         tasks = todos_response.json()
         done, total = 0, 0
@@ -32,7 +32,7 @@ if __name__ == "__main__":
             total += 1
             if dict['completed']:
                 done += 1
-    print(f"Employee {employee['name']} is done with tasks({done}/{total}):")
+    print("Employee {} is done with tasks({}/{}):".format(employee['name'], done, total))
     for dict in tasks:
         if dict["completed"]:
             print("\t", dict["title"])
