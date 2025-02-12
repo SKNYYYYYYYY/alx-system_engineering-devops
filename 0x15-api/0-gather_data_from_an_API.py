@@ -5,6 +5,7 @@ Fetches user details and tasks from JSONPlaceholder API.
 
 
 import requests
+import sys
 
 
 def get_data(id):
@@ -37,4 +38,5 @@ def get_data(id):
 
 
 if __name__ == "__main__":
-    get_data(2)
+    args = sys.argv[1]
+    get_data(args)
