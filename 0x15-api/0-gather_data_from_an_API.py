@@ -31,7 +31,7 @@ def get_user_details(id):
     done = [i["title"] for i in tasks if i["completed"]]
     print(f"Employee {employee['name']
                       } is done with tasks({len(done)}/{len(total)}:")
-    print("\t" + "\n\t".join(done_tasks),)
+    print("\t" + "\n\t".join(done),)
 
 
 if __name__ == "__main__":
