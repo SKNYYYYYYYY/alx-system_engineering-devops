@@ -1,9 +1,19 @@
 #!/usr/bin/python3
+"""
+Fetches user details and tasks from JSONPlaceholder API.
+"""
+
+
 import requests
-import json
 
 
 def get_data(id):
+    """
+    Fetches and prints an employee's completed tasks.
+
+    Args:
+        id (int): Employee ID.
+    """
     url = "https://jsonplaceholder.typicode.com"
     params = {"id": id}
     response = requests.get(f"{url}/users", params=params)
@@ -15,14 +25,12 @@ def get_data(id):
     todos_response = requests.get(f"{url}/todos", params={"userId": id})
     if todos_response.status_code == 200:
         tasks = todos_response.json()
-        done_tasks, total_tasks = 0, 0
+        done, total = 0, 0
         for dict in tasks:
-            total_tasks += 1
+            total += 1
             if dict['completed']:
-                done_tasks += 1
-    print(
-        f"Employee {
-            employee['name']} is done with tasks({done_tasks}/{total_tasks}):")
+                done += 1
+    print(f"Employee {employee['name']} is done with tasks({done}/{total}):")
     for dict in tasks:
         if dict["completed"]:
             print("    ", dict["title"])
