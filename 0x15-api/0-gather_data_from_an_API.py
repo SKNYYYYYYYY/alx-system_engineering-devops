@@ -29,8 +29,8 @@ def get_user_details(id):
         tasks = todos_response.json()
     total = len([i['title'] for i in tasks])
     done = [i["title"] for i in tasks if i["completed"]]
-    len_done = len(done)
-    print(f"Employee {employee['name']} is done with tasks({len_done}/{total}):")
+    len = len(done)
+    print(f"Employee {employee['name']} is done with tasks({len}/{total}):")
     print("\t " + "\n\t ".join(done),)
 
 
