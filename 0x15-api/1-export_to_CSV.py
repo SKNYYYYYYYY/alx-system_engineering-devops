@@ -35,7 +35,7 @@ def get_user_details(id):
                 csv.append(value)
             if item == "title":
                 csv.append(value)
-        csv.insert(1, employee["name"])
+        csv.insert(1, employee["username"])
         csv[2], csv[3] = csv[3], csv[2]
         formatted = ", ".join(f'"{item}"' for item in csv)
         filename = str(id) + ".csv"
