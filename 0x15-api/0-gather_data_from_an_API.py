@@ -34,9 +34,9 @@ def get_data(id):
     print(f"Employee {employee['name']} is done with tasks({done}/{total}):")
     for dict in tasks:
         if dict["completed"]:
-            print("    ", dict["title"])
+            print("\t", dict["title"])
 
 
 if __name__ == "__main__":
-    args = sys.argv[1]
+    args = int(sys.argv[1])
     get_data(args)
