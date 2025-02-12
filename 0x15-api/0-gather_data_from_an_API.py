@@ -27,11 +27,11 @@ def get_user_details(id):
             "userId": id})
     if todos_response.status_code == 200:
         tasks = todos_response.json()
-    total = [i['title'] for i in tasks]
+    total = len([i['title'] for i in tasks])
     done = [i["title"] for i in tasks if i["completed"]]
-    print(f"Employee {employee['name']
-                      } is done with tasks({len(done)}/{len(total)}:")
-    print("\t" + "\n\t".join(done),)
+    len_done = len(done)
+    print(f"Employee {employee['name']} is done with tasks({len_done}/{total}):")
+    print("\t " + "\n\t ".join(done),)
 
 
 if __name__ == "__main__":
